@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import FeaturedEvents from "../FeaturedEvents/FeaturedEvents"; // Example component
+import CategorySection from "../CategorySection/CategorySection";
 // import AnotherComponent from "../AnotherComponent/AnotherComponent"; // Add more
 
 function Home() {
@@ -21,8 +22,8 @@ function Home() {
             <FeaturedEvents />
           </section>
 
-          <section className="w-full">
-            {/* <AnotherComponent /> */} Another Component
+          <section className="w-full lg:p-8">
+            <CategorySection/>
           </section>
 
           {/* Add more sections/components here */}
