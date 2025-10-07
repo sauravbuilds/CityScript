@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import logo from "/Logo.svg";
 import { LocationSheet } from "../Sheets/LocationSheet";
 import { AuthSheet } from "../Sheets/AuthSheet";
+import { RiCloseLargeLine } from "react-icons/ri";
 
 const MobileMenu = ({ onClose, authState, setAuthState }) => {
   const [showLocation, setShowLocation] = useState(false);
@@ -12,14 +13,21 @@ const MobileMenu = ({ onClose, authState, setAuthState }) => {
       {/* BACKDROP */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black bg-opacity-40 z-40"
+        className="fixed inset-0 bg-transparent bg-opacity-40 z-40"
       ></div>
 
       {/* SIDE MENU */}
-      <div className="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 p-4 overflow-y-auto animate-slideIn">
+      <div className="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 p-2 overflow-y-auto animate-slideIn">
         {/* LOGO */}
-        <div className="flex items-center mb-6">
+        <div className="flex items-center mb-6 justify-between">
           <img src={logo} alt="CityScript" className="h-10 px-2" />
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            aria-label="Close menu"
+          >
+            <RiCloseLargeLine className="font-extrabold text-2xl" />
+          </button>
         </div>
 
         {/* LOCATION SECTION */}
@@ -32,7 +40,9 @@ const MobileMenu = ({ onClose, authState, setAuthState }) => {
             <span className="mr-1 font-bold text-lg leading-tight text-gray-700 capitalize">
               India
             </span>
-            <span className="ml-2 text-[#5b47e0] font-bold text-xs">Change</span>
+            <span className="ml-2 text-[#5b47e0] font-bold text-xs">
+              Change
+            </span>
           </div>
         </div>
 
