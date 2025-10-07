@@ -28,3 +28,13 @@
 }
 
 
+.building-image-container {
+  margin-top: 100px;
+  text-align: left;
+  background-image: url('https://s3.ap-south-1.amazonaws.com/townscript-common-resources/assets/footer-skyline.png');
+  background-repeat: repeat-x;
+  background-position: left top;
+  background-size: auto; /* optional, or cover / contain */
+  width: 100%;
+  min-height: 5rem;
+}
