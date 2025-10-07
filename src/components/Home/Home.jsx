@@ -6,6 +6,7 @@ import CategorySection from "../CategorySection/CategorySection";
 import QuickFilters from "../QuickFilters/QuickFilters";
 import EventStrip from "../EventStrip/EventStrip";
 import OrganiserStrip from "../OrganiserStrip/OrganiserStrip";
+import Support from "../Support/Support";
 // import AnotherComponent from "../AnotherComponent/AnotherComponent"; // Add more
 
 function Home() {
@@ -20,11 +21,9 @@ function Home() {
         <section className="h-screen w-full bg-gray-50 flex items-center justify-center">
           <h1 className="text-4xl font-bold">HomePage City</h1>
         </section> */}
-
           <section className="w-full  mt-18 bg-[#F1EEFF]">
             <FeaturedEvents />
           </section>
-
           <section className="w-full lg:p-8">
             <CategorySection />
           </section>
@@ -34,10 +33,54 @@ function Home() {
           <section className="w-full lg:px-8 mb-12">
             <EventStrip />
           </section>
-          <section className="w-full ">
-            <OrganiserStrip/>
+          <section className="w-full mb-8">
+            <OrganiserStrip />
           </section>
-          {/* Add more sections/components here */}
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full ">
+            <OrganiserStrip />
+          </section>
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>{" "}
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>{" "}
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>{" "}
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>{" "}
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>{" "}
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full ">
+            <OrganiserStrip />
+          </section>
+
+
+        <Support/>
         </main>
       </div>
       {/* Footer */}
