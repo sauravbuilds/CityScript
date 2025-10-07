@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "/Logo.svg";
+import logo from "/Logo-transparent.png";
 import CreateEventButton from "../CreateEventButton/CreateEventButton";
 import OnlineDropdown from "../OnlineDropDown/OnlineDropdown";
 import AuthLinks from "../AuthLinks/AuthLinks";
@@ -14,11 +14,11 @@ const Navbar = () => {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
 
-  // ✅ Centralized auth state (controls everything)
+  // Centralized auth state (controls everything)
   const [authState, setAuthState] = useState(true); // false = logged out
 
   return (
-    <nav className="w-full bg-white shadow-sm px-4 sm:px-6 lg:px-10 flex items-center justify-between py-3 fixed z-30">
+    <nav className="w-full bg-white/50 backdrop-blur-lg shadow-sm px-4 sm:px-6 lg:px-10 flex items-center justify-between py-3 fixed z-30">
       {/* LEFT SECTION */}
       <div className="flex items-center space-x-3">
         <button
