@@ -2,7 +2,13 @@ import React from "react";
 
 const OrganiserStrip = () => {
   return (
-    <section className="organiser-strip bg-purple-800 relative">
+    <section
+      className="organiser-strip relative"
+      style={{
+        background:
+          "linear-gradient(111.59deg, #5443b0 16.69%, #231b54 74.35%)",
+      }}
+    >
       <div className="digest-container max-w-7xl ml-8    py-8 flex flex-col md:flex-row justify-between items-center ">
         {/* Left Text Section */}
         <div className="flex flex-col w-full md:w-1/2 text-white">
