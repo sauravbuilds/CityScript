@@ -4,7 +4,6 @@ import CreateEventButton from "../CreateEventButton/CreateEventButton";
 import OnlineDropdown from "../OnlineDropDown/OnlineDropdown";
 import AuthLinks from "../AuthLinks/AuthLinks";
 import MobileMenu from "../MobileMenu/MobileMenu";
-i;
 import { CgMenuLeft } from "react-icons/cg";
 import { IoMdArrowBack } from "react-icons/io";
 import { MdSearch } from "react-icons/md";
