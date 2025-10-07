@@ -3,6 +3,7 @@ import Nav from "../Nav/Nav";
 import Footer from "../Footer/Footer";
 import FeaturedEvents from "../FeaturedEvents/FeaturedEvents"; // Example component
 import CategorySection from "../CategorySection/CategorySection";
+import QuickFilters from "../QuickFilters/QuickFilters";
 // import AnotherComponent from "../AnotherComponent/AnotherComponent"; // Add more
 
 function Home() {
@@ -23,9 +24,11 @@ function Home() {
           </section>
 
           <section className="w-full lg:p-8">
-            <CategorySection/>
+            <CategorySection />
           </section>
-
+          <section className="w-full lg:px-8 ">
+            <QuickFilters />
+          </section>
           {/* Add more sections/components here */}
         </main>
       </div>
