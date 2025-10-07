@@ -4,6 +4,8 @@ import Footer from "../Footer/Footer";
 import FeaturedEvents from "../FeaturedEvents/FeaturedEvents"; // Example component
 import CategorySection from "../CategorySection/CategorySection";
 import QuickFilters from "../QuickFilters/QuickFilters";
+import EventStrip from "../EventStrip/EventStrip";
+import OrganiserStrip from "../OrganiserStrip/OrganiserStrip";
 // import AnotherComponent from "../AnotherComponent/AnotherComponent"; // Add more
 
 function Home() {
@@ -26,8 +28,14 @@ function Home() {
           <section className="w-full lg:p-8">
             <CategorySection />
           </section>
-          <section className="w-full lg:px-8 ">
+          <section className="w-full lg:px-8  mb-22">
             <QuickFilters />
+          </section>
+          <section className="w-full lg:px-8 mb-12">
+            <EventStrip />
+          </section>
+          <section className="w-full ">
+            <OrganiserStrip/>
           </section>
           {/* Add more sections/components here */}
         </main>
