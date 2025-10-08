@@ -1,9 +1,48 @@
-import React, { useRef } from "react";
+import React, { useRef, useMemo } from "react";
 import { MdArrowForward, MdShare } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { eventsData } from "../../Utils/MockData.js"; // adjust path if needed
 
 const EventStrip = () => {
   const scrollRef = useRef(null);
+  const navigate = useNavigate();
+
+  // Build a title -> {category, id} index from eventsData
+  const titleIndex = useMemo(() => {
+    const normalize = (s) => s.toLowerCase().replace(/\s+/g, " ").trim();
+    const idx = {};
+    Object.entries(eventsData).forEach(([cat, list]) => {
+      list.forEach((e) => {
+        idx[normalize(e.title)] = { category: cat, id: e.id };
+      });
+    });
+    return idx;
+  }, []);
+
+  // Manual mapping for titles not present in eventsData yet
+  const manualMap = useMemo(
+    () => ({
+      "ifp challenges season 15": { category: "must-visit", id: 1 },
+      "testflix 2025 - global software testing binge": {
+        // Update this once you add Testflix into eventsData
+        category: "must-visit",
+        id: 101,
+      },
+    }),
+    []
+  );
+
+  const openEvent = (card) => {
+    const key = card.title?.toLowerCase().replace(/\s+/g, " ").trim();
+    const route = titleIndex[key] || manualMap[key];
+    if (route) {
+      navigate(`/category/${route.category}/${route.id}`);
+    } else {
+      // final fallback if no mapping found
+      navigate("/categories");
+    }
+  };
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -149,6 +188,12 @@ const EventStrip = () => {
           {events.map((event, idx) => (
             <div
               key={idx}
+              role="button"
+              tabIndex={0}
+              onClick={() => openEvent(event)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") openEvent(event);
+              }}
               className="group overflow-hidden border border-gray-200 hover:shadow-lg transform transition-transform duration-300 hover:-translate-y-4 flex-shrink-0 w-[200px] sm:w-[240px] md:w-[280px] lg:w-[320px] rounded-lg bg-white"
             >
               {/* Image */}
@@ -159,10 +204,16 @@ const EventStrip = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-3 right-3 flex gap-2">
-                  <button className="   flex items-center justify-center ">
+                  <button
+                    onClick={(e) => e.stopPropagation()}
+                    className="   flex items-center justify-center "
+                  >
                     <FaRegHeart className="h-6 w-6 text-white " />
                   </button>
-                  <button className="  flex items-center justify-center ">
+                  <button
+                    onClick={(e) => e.stopPropagation()}
+                    className="  flex items-center justify-center "
+                  >
                     <MdShare className="h-6 w-6 text-white" />
                   </button>
                 </div>

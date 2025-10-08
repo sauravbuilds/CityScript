@@ -5,9 +5,7 @@ import { FaCaretDown } from "react-icons/fa";
 const LocationDropdown = () => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState("Online");
-  const dropdownRef = useRef(null);
-
-  const locations = [
+  const [locations, setLocations] = useState([
     "Online",
     "Mumbai",
     "Bengaluru",
@@ -16,7 +14,8 @@ const LocationDropdown = () => {
     "Pune",
     "Chennai",
     "Kolkata",
-  ];
+  ]);
+  const dropdownRef = useRef(null);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -29,6 +28,40 @@ const LocationDropdown = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Detect user location
+  useEffect(() => {
+    if (!navigator.geolocation) return; // Geolocation not supported
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        try {
+          // Use OpenStreetMap Nominatim API for reverse geocoding
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+          );
+          const data = await res.json();
+          const city =
+            data.address.city || data.address.town || data.address.village;
+          const country = data.address.country;
+
+          const detectedLocation = city ? `${city}` : country;
+
+          // Add to locations list if not already there
+          if (detectedLocation && !locations.includes(detectedLocation)) {
+            setLocations((prev) => [detectedLocation, ...prev]);
+          }
+
+          if (detectedLocation) setSelected(detectedLocation);
+        } catch (err) {
+          console.error("Failed to detect location", err);
+        }
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+      }
+    );
+  }, []);
+
   return (
     <div
       ref={dropdownRef}
@@ -37,8 +70,6 @@ const LocationDropdown = () => {
     >
       {/* Left section: Icon + Text */}
       <div className="flex items-center w-10/12 gap-1" title={selected}>
-        {/* Earth Icon */}
-
         <BiWorld className="text-xl text-blue-700" />
         <span className="truncate capitalize text-gray-800 text-sm md:text-base">
           {selected}

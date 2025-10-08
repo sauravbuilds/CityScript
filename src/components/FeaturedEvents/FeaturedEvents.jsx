@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import { eventsData } from "../../Utils/MockData.js"; // adjust path if needed
 
 const FeaturedCarousel = () => {
+  const navigate = useNavigate();
+
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isAnimating, setIsAnimating] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
@@ -26,6 +30,57 @@ const FeaturedCarousel = () => {
         "https://ts-production.imgix.net/images/mobile-cover-uploaded/56966312-f3a2-4021-a722-c0a158026658.jpg?auto=compress,format&w=776&h=437",
     },
   ];
+
+  // Hard mapping for your three featured slugs -> routes in eventsData
+  // Update these if you add the actual events later.
+  const FEATURED_TO_EVENT_ROUTE = useMemo(
+    () => ({
+      // IFP challenges -> must-visit id 1
+      ifpseason15: { category: "must-visit", id: 1 },
+
+      // Testflix (not in mock data yet). Point it to a valid detail for now.
+      // Change to the real event once you add it to eventsData.
+      "testflix-2025-registration": { category: "must-visit", id: 101 },
+
+      // ABCR Marathon -> sports-fitness Virtual Marathon 2025 (id 402)
+      "abcr-7-wonders-virtual-marathon-041014": {
+        category: "sports-fitness",
+        id: 402,
+      },
+    }),
+    []
+  );
+
+  // Optional: title-based fallback if you later add items with matching titles
+  const byTitleIndex = useMemo(() => {
+    const normalize = (s) => s.toLowerCase().replace(/\s+/g, " ").trim();
+    const idx = {};
+    Object.entries(eventsData).forEach(([cat, list]) => {
+      list.forEach((e) => {
+        idx[normalize(e.title)] = { category: cat, id: e.id };
+      });
+    });
+    return idx;
+  }, []);
+
+  const openEvent = (feat) => {
+    const slug = feat.id.toLowerCase();
+    let route = FEATURED_TO_EVENT_ROUTE[slug];
+
+    if (!route) {
+      // fallback by title if present
+      const titleRoute = byTitleIndex[feat.title?.toLowerCase().trim()];
+      if (titleRoute) route = titleRoute;
+    }
+
+    if (route) {
+      navigate(`/category/${route.category}/${route.id}`);
+    } else {
+      // final fallback: go to categories or a safe default
+      console.warn("No route found for featured item:", feat);
+      navigate("/categories");
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -68,12 +123,8 @@ const FeaturedCarousel = () => {
   };
 
   const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) {
-      handleNext();
-    }
-    if (touchStart - touchEnd < -75) {
-      handlePrev();
-    }
+    if (touchStart - touchEnd > 75) handleNext();
+    if (touchStart - touchEnd < -75) handlePrev();
   };
 
   const getPosition = (index) => {
@@ -81,11 +132,12 @@ const FeaturedCarousel = () => {
     if (diff === 0) return "center";
     if (diff === 1) return "right";
     return "left";
+    // for 3 items, remainder other than 0/1 will be "left"
   };
 
   return (
     <div className="featured-container border-0 border-gray-200 py-4">
-      {/* Mobile Swipe View with Animation */}
+      {/* Mobile Swipe View */}
       <div
         className="md:hidden cursor-pointer relative overflow-hidden"
         onTouchStart={handleTouchStart}
@@ -95,7 +147,6 @@ const FeaturedCarousel = () => {
         <div className="swipe-wrap relative h-56">
           {events.map((event, index) => {
             const position = getPosition(index);
-
             return (
               <div
                 key={event.id}
@@ -107,30 +158,33 @@ const FeaturedCarousel = () => {
                     : "-left-full opacity-0 z-0 scale-90"
                 }`}
               >
-                <a href={`/e/${event.id}`}>
+                <button
+                  type="button"
+                  onClick={() => openEvent(event)}
+                  className="block w-full text-left"
+                  aria-label={`Open ${event.title}`}
+                >
                   <img
                     className="event-image w-full rounded-lg shadow-lg"
                     alt={event.title}
                     title={event.title}
                     src={event.image}
+                    loading="lazy"
                   />
-                </a>
+                </button>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Desktop Carousel with Animation */}
+      {/* Desktop Carousel */}
       <div className="hidden md:flex relative carousel">
-        {/* Left Gradient */}
         <div className="h-full w-2/12 absolute left-0 top-0 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
 
-        {/* Carousel Items */}
         <ul className="flex relative w-full overflow-hidden h-64">
           {events.map((event, index) => {
             const position = getPosition(index);
-
             return (
               <li
                 key={event.id}
@@ -142,23 +196,26 @@ const FeaturedCarousel = () => {
                     : "left-0 -translate-x-8 z-10 scale-90 opacity-70"
                 } top-1/2 -translate-y-1/2`}
               >
-                <a href={`/e/${event.id}`}>
+                <button
+                  type="button"
+                  onClick={() => openEvent(event)}
+                  className="block w-full text-left"
+                  aria-label={`Open ${event.title}`}
+                >
                   <img
                     className="w-full md:rounded transition-transform duration-500 hover:scale-105"
                     alt={event.title}
                     title={event.title}
                     src={event.image}
+                    loading="lazy"
                   />
-                </a>
+                </button>
               </li>
             );
           })}
         </ul>
 
-        {/* Right Gradient */}
         <div className="h-full w-2/12 absolute right-0 top-0 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
-
-        {/* Desktop Navigation Arrows */}
       </div>
 
       {/* Navigation Dots */}

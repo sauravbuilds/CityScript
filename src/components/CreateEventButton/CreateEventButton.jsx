@@ -3,7 +3,7 @@ import React from "react";
 const CreateEventButton = () => {
   return (
     <a
-      href="https://www.townscript.com/dashboard/create-event"
+      href="/dashboard/create-event"
       className="flex items-center justify-center h-full px-5 py-2 rounded-full cursor-pointer 
                  bg-[#5b47e0] hover:bg-[#4a3fc8] text-white 
                  font-semibold text-sm tracking-wide leading-loose 

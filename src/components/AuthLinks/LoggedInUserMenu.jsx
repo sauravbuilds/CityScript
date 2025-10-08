@@ -76,21 +76,21 @@ export const UserMenu = () => {
             {organizingOpen && (
               <div className="text-sm text-gray-800 overflow-hidden transition-all duration-300">
                 <a
-                  href="https://www.townscript.com/dashboard/v2/events"
+                  href="/manage-events"
                   className="flex items-center px-1 py-1"
                 >
                   <MdCalendarToday className="text-primary mr-2" />
                   Manage Events
                 </a>
                 <a
-                  href="https://www.townscript.com/dashboard/v2/billing"
+                  href="/billing"
                   className="flex items-center px-1 py-1"
                 >
                   <MdAttachMoney className="text-primary mr-2" />
                   Billing
                 </a>
                 <a
-                  href="https://www.townscript.com/dashboard/reports"
+                  href="/reports"
                   className="flex items-center px-1 py-1"
                 >
                   <MdShowChart className="text-primary mr-2" />

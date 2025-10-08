@@ -175,3 +175,37 @@ const MobileMenu = ({ onClose, authState, setAuthState }) => {
 };
 
 export default MobileMenu;
+
+
+// MobileMenuTest.jsx
+// MobileMenu.jsx
+// import React from "react";
+
+// const MobileMenu = ({ onClose }) => {
+//   return (
+//     <>
+//       {/* Backdrop */}
+//       <div
+//         className="fixed inset-0 bg-black/40 z-40"
+//         onClick={onClose}
+//       ></div>
+
+//       {/* Menu */}
+//       <div className="fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 p-4 flex flex-col gap-4 overflow-y-auto">
+//         <h1 className="text-2xl font-bold">Mobile Menu</h1>
+//         <div className="bg-gray-200 p-2 rounded">Menu Item 1</div>
+//         <div className="bg-gray-200 p-2 rounded">Menu Item 2</div>
+//         <div className="bg-gray-200 p-2 rounded">Menu Item 3</div>
+//         <button
+//           onClick={onClose}
+//           className="mt-auto px-4 py-2 bg-purple-600 text-white rounded"
+//         >
+//           Close Menu
+//         </button>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default MobileMenu;
+
