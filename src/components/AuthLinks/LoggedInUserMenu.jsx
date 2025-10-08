@@ -40,7 +40,8 @@ export const UserMenu = () => {
         <div className="absolute top-10 right-0 bg-white rounded-lg shadow-lg w-64 py-2 z-50">
           {/* User Info */}
           <a
-            href="https://www.townscript.com/dashboard/settings/my-profile"
+            href="/settings/my-profile"
+            target="_blank"
             className="block px-4 py-2 border-b border-gray-300"
           >
             <div className="flex items-center">
